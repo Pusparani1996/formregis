@@ -1,6 +1,6 @@
 // ignore_for_file: curly_braces_in_flow_control_structures
 
-import 'dart:html';
+
 
 import 'package:flutter/material.dart';
 
@@ -39,7 +39,11 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   GlobalKey<FormState> formkey = GlobalKey<FormState>();
-
+  List<String>location=['America','Africa','Argentina','Australia','Brazil','Bhutan','Belgium','Califonia','Canada','China','Colombia','Europe','India','a','b','c','d','e','f','g'];
+   List<String>state=['Assam','Arunachal Pradesh','Bihar','Bhopal','Chennai','Chandigarh','Delhi','Kolkata','kerala','Manipur','Shimla'];
+  String? _selectedlocation;
+   String? _selectedstate;
+   bool _checkbox=false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,7 +66,8 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ],
       ),
-      body: Container(
+      body:SingleChildScrollView(
+        child:    Container(
         padding: const EdgeInsets.all(5),
         child: Center(
           child: Form(
@@ -72,7 +77,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 Padding(
                   padding: const EdgeInsets.all(20),
                   child: TextFormField(
-                    decoration: const InputDecoration(
+                    decoration: const InputDecoration( 
+                    
                       border: OutlineInputBorder(),
                       labelText: "Name",
                     ),
@@ -108,26 +114,72 @@ class _MyHomePageState extends State<MyHomePage> {
                     },
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(20),
-                  child: TextFormField(
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: "Country",
-                      prefixIcon: Icon(
-                        Icons.location_on_outlined,
-                        color: Colors.blue,
+                
+             
+                Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                
+                  children: [
+                    
+                    Padding(
+                      padding: const EdgeInsets.only(left: 20),
+                      child: Container(width: MediaQuery.of(context).size.width*0.40,
+                      height: MediaQuery.of(context).size.height*0.07,
+                      
+                       
+                          child: DropdownButton<String>(
+                           menuMaxHeight: 300,
+                           underline: Container(
+                              height: 3,
+                              color: Colors.blue
+                            ),
+          
+                            hint:  const Text("please select country"),
+                            isExpanded:true,
+                            value: _selectedlocation,
+                            onChanged: (newValue) {setState(() {
+                              _selectedlocation = newValue!;
+                            });},
+                            items:location.map((location) {
+                            return DropdownMenuItem<String>(
+                            child: Text(location),
+                            value: location,
+                            );
+                            }).toList(),
+               
+                          ),
+                      
                       ),
                     ),
-                    validator: (country) {
-                      if (country!.isEmpty ||
-                          !RegExp(r'^[a-z A-Z 0-9] +$').hasMatch(country)) {
-                        return "Enter correct country ";
-                      } else
-                        return null;
-                    },
+                     Padding(
+                       padding: const EdgeInsets.only(right: 20),
+                       child: Container(width: MediaQuery.of(context).size.width*0.40,
+                height: MediaQuery.of(context).size.height*0.07,
+                  child: DropdownButton<String>(
+                    menuMaxHeight: 300,
+                    underline: Container(
+                      height: 3,
+                      color: Colors.blue,
+                    ),
+                    hint:  const Text("please select state"),
+                    isExpanded:true,
+                    value: _selectedstate,
+                    onChanged: (newValue) {setState(() {
+                        _selectedstate = newValue!;
+                    });},
+                    items:state.map((state) {
+                    return DropdownMenuItem<String>(
+                    child: Text(state),
+                    value: state,
+                    );
+                    }).toList(),
+               
                   ),
                 ),
+                     ),
+                  ],
+                ),
+                
+    
                 Padding(
                   padding: const EdgeInsets.all(20),
                   child: TextFormField(
@@ -148,6 +200,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     },
                   ),
                 ),
+
                 Padding(
                   padding: const EdgeInsets.all(20),
                   child: TextFormField(
@@ -166,14 +219,17 @@ class _MyHomePageState extends State<MyHomePage> {
                     },
                   ),
                 ),
-                SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.7,
-                  height: MediaQuery.of(context).size.height * 0.05,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [Text("I accept terms & condition")],
-                  ),
+                Row( mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Checkbox(value:_checkbox, onChanged:(value){
+                      setState(() {
+                      _checkbox =!_checkbox;
+                    });}),
+                     const Text("I accept terms & conditions")
+                  ],
                 ),
+
+                
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Container(
@@ -194,6 +250,9 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ),
       ),
+      ),
+      
+   
     );
   }
 }
