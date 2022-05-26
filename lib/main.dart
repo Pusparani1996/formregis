@@ -4,7 +4,8 @@
 
 import 'package:flutter/material.dart';
 
-import 'package:email_validator/email_validator.dart';
+
+import 'formregisrtwo.dart';
 //import 'package:flutter/cupertino.dart';
 //import 'package:flutter/services.dart';
 
@@ -54,17 +55,7 @@ class _MyHomePageState extends State<MyHomePage> {
           "Registration Form",
           style: TextStyle(fontWeight: FontWeight.bold, color: Colors.blue),
         ),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 30),
-            child: IconButton(
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.arrow_forward_ios_outlined,
-                  color: Colors.black,
-                )),
-          ),
-        ],
+    
       ),
       body:SingleChildScrollView(
         child:    Container(
@@ -122,7 +113,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     
                     Padding(
                       padding: const EdgeInsets.only(left: 20),
-                      child: Container(width: MediaQuery.of(context).size.width*0.40,
+                      child: SizedBox(width: MediaQuery.of(context).size.width*0.40,
                       height: MediaQuery.of(context).size.height*0.07,
                       
                        
@@ -141,6 +132,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             });},
                             items:location.map((location) {
                             return DropdownMenuItem<String>(
+                            // ignore: sort_child_properties_last
                             child: Text(location),
                             value: location,
                             );
@@ -152,7 +144,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                      Padding(
                        padding: const EdgeInsets.only(right: 20),
-                       child: Container(width: MediaQuery.of(context).size.width*0.40,
+                       child: SizedBox(width: MediaQuery.of(context).size.width*0.40,
                 height: MediaQuery.of(context).size.height*0.07,
                   child: DropdownButton<String>(
                     menuMaxHeight: 300,
@@ -168,8 +160,8 @@ class _MyHomePageState extends State<MyHomePage> {
                     });},
                     items:state.map((state) {
                     return DropdownMenuItem<String>(
-                    child: Text(state),
                     value: state,
+                    child: Text(state),
                     );
                     }).toList(),
                
@@ -240,6 +232,8 @@ class _MyHomePageState extends State<MyHomePage> {
                         color: Colors.blue),
                     child: ElevatedButton(
                         onPressed: () {
+                          Navigator.push(context, MaterialPageRoute(builder: ((context) => const LoginScreen() ),
+                          ), );
                           if (formkey.currentState!.validate()) {}
                         },
                         child: const Text("Create Account")),
